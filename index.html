@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculadora de Notas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
+  <div class="bg-white rounded-2xl shadow-lg p-8 max-w-lg w-full">
+    <h1 class="text-2xl font-bold text-center mb-6 text-indigo-600">📘 Calculadora de Notas Universitarias</h1>
+    <form id="notaForm" class="space-y-4">
+      <div class="flex justify-between items-center">
+        <label class="font-medium">Evaluación Diagnóstica</label>
+        <input type="number" step="0.01" id="nota0" value="0" class="w-20 border rounded px-2 py-1">
+        <input type="number" step="0.1" id="peso0" value="0" class="w-20 border rounded px-2 py-1">
+      </div>
+      <div class="flex justify-between items-center">
+        <label class="font-medium">Evaluación Continua 1</label>
+        <input type="number" step="0.01" id="nota1" class="w-20 border rounded px-2 py-1">
+        <input type="number" step="0.1" id="peso1" value="15" class="w-20 border rounded px-2 py-1">
+      </div>
+      <div class="flex justify-between items-center">
+        <label class="font-medium">Evaluación Parcial</label>
+        <input type="number" step="0.01" id="nota2" class="w-20 border rounded px-2 py-1">
+        <input type="number" step="0.1" id="peso2" value="20" class="w-20 border rounded px-2 py-1">
+      </div>
+      <div class="flex justify-between items-center">
+        <label class="font-medium">Evaluación Continua 2</label>
+        <input type="number" step="0.01" id="nota3" class="w-20 border rounded px-2 py-1">
+        <input type="number" step="0.1" id="peso3" value="15" class="w-20 border rounded px-2 py-1">
+      </div>
+      <div class="flex justify-between items-center">
+        <label class="font-medium">Evaluación Continua 3</label>
+        <input type="number" step="0.01" id="nota4" class="w-20 border rounded px-2 py-1">
+        <input type="number" step="0.1" id="peso4" value="25" class="w-20 border rounded px-2 py-1">
+      </div>
+      <div class="flex justify-between items-center">
+        <label class="font-medium">Evaluación Final</label>
+        <input type="number" step="0.01" id="nota5" class="w-20 border rounded px-2 py-1">
+        <input type="number" step="0.1" id="peso5" value="25" class="w-20 border rounded px-2 py-1">
+      </div>
+      <button type="button" onclick="calcularPromedio()" class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">Calcular Promedio</button>
+    </form>
+    <h3 id="resultado" class="mt-6 text-center text-lg font-semibold text-gray-800"></h3>
+  </div>
+
+  <script>
+    function calcularPromedio() {
+      let total = 0;
+      let sumaPesos = 0;
+
+      for (let i = 0; i <= 5; i++) {
+        let nota = parseFloat(document.getElementById("nota" + i).value) || 0;
+        let peso = parseFloat(document.getElementById("peso" + i).value) || 0;
+        total += nota * (peso / 100);
+        sumaPesos += peso;
+      }
+
+      const resultado = document.getElementById("resultado");
+
+      if (sumaPesos !== 100) {
+        resultado.innerText = `⚠️ La suma de los porcentajes debe ser 100%. Actualmente es: ${sumaPesos.toFixed(1)}%`;
+        resultado.classList.remove("text-green-600");
+        resultado.classList.add("text-red-600");
+      } else {
+        resultado.innerText = `✅ Tu promedio final es: ${total.toFixed(2)}`;
+        resultado.classList.remove("text-red-600");
+        resultado.classList.add("text-green-600");
+      }
+    }
+  </script>
+</body>
+</html>
